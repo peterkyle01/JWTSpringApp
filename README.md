@@ -9,7 +9,7 @@ This is a project using jwt as the security.
 - [Java 21](https://jdk.java.net/21/)
 - [Apache Maven](https://maven.apache.org/guides/index.html)
 - [Spring Web](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#web)
-- [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#using.devtools)
+- [Spring Security](https://spring.io/projects/spring-security)
 
 # How to run the app
 
@@ -19,7 +19,7 @@ This is a project using jwt as the security.
 
 3. Make sure you have [docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/) installed.
 
-4. Run `docker-compose up` in the terminal. This will create mysql database and phpMyAdmin.
+4. Run `docker-compose up` in the terminal. This will create a postgres database with users_db.
 
 5. While still in the terminal , run `./mvnw spring-boot:run`
 
