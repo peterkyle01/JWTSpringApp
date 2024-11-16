@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: JWT-Spring-App
+  datasource:
+    url: jdbc:postgresql://localhost:5432/users_db
+    username: peterkyle
+    password: super_secret
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
