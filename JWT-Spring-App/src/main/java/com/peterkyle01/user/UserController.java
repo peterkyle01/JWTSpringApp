@@ -1,34 +1,40 @@
 package com.peterkyle01.user;
 
-import com.peterkyle01.user.dto.UserRequestByEmail;
+import com.peterkyle01.user.dto.UserRequest;
+import com.peterkyle01.user.dto.UserResponse;
+import com.peterkyle01.user.service.UserMapperService;
+import com.peterkyle01.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/users")
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final UserMapperService userMapperService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-
-    @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.createUser(user));
+    @PostMapping("/create")
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest request) {
+        User user = userMapperService.userRequestToUser(request);
+        User userResponse = userService.createUser(user);
+        return ResponseEntity.ok(userMapperService.userToUserResponse(userResponse));
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(userMapperService.usersToUserResponse(users));
     }
 
     @GetMapping("/user")
-    public ResponseEntity<User> getOneUserById(@RequestBody UserRequestByEmail request){
-        return ResponseEntity.ok(userService.getOneUserByEmail(request.email()));
+    public ResponseEntity<UserResponse> getOneUserByEmail(@RequestParam("email") String email) {
+        User user = userService.getOneUserByEmail(email);
+        return ResponseEntity.ok(userMapperService.userToUserResponse(user));
     }
 }
 
